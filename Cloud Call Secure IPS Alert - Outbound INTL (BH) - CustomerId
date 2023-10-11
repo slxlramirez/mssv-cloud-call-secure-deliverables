@@ -1,0 +1,3 @@
+index="hosted-uc" customerId="f72940bf" direction="out" NOT libphonenumber.countryCode="1" 
+| stats count
+| search count > 100
