@@ -1,0 +1,118 @@
+<form>
+  <label>zzz - Cloud Call Secure IPS Total Inbound Details</label>
+  <fieldset submitButton="false">
+    <input type="dropdown" token="custId_token">
+      <label>Customer Id</label>
+      <fieldForLabel>customerId</fieldForLabel>
+      <fieldForValue>customerId</fieldForValue>
+      <search>
+        <query>index="hosted-uc" 
+| dedup customerId
+| table customerId
+| sort customerId</query>
+        <earliest>-30d@d</earliest>
+        <latest>now</latest>
+      </search>
+    </input>
+    <input type="time" token="tc">
+      <label></label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <title>About this dashboard</title>
+        <search>
+          <query>| makeresults 
+| eval notes="This dashboard is used for drilldown for the HUCS IPS Total Inbound dashboard"
+| fields - _time</query>
+          <earliest>-15m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <single>
+        <title>Earliest Time</title>
+        <search>
+          <query>| makeresults 
+| eval time_display=$form.tc.earliest$
+| fields - _time
+| eval c_time=strftime(time_display,"%m/%d/%y %H:%M:%S") 
+| table c_time</query>
+          <earliest>$tc.earliest$</earliest>
+          <latest>$tc.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Total Calls</title>
+        <search base="cdr">
+          <query>| stats count</query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <title>Calls by 1m</title>
+        <search base="cdr">
+          <query>| timechart span=1m count</query>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>Top Sources</title>
+        <search base="cdr">
+          <query>| stats count by srcNum npacData.provider
+| sort -count</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <table>
+        <title>Top Destinations</title>
+        <search base="cdr">
+          <query>| stats count by destNum
+| sort -count</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>CDR</title>
+        <search id="cdr">
+          <query>index="hosted-uc" customerId=$custId_token$ direction="in"
+| table *
+| fields - _raw</query>
+          <earliest>$tc.earliest$</earliest>
+          <latest>$tc.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>
