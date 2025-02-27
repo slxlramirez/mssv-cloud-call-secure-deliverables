@@ -1,0 +1,3 @@
+index="hosted-uc" customerId="f72940bf" direction="in" 
+| stats count by srcNum
+| search count > 10
