@@ -104,7 +104,7 @@
       <table>
         <title>CDR</title>
         <search id="cdr">
-          <query>index="hosted-uc" customerId=$customerApi_token$ direction="in"
+          <query>index="hosted-uc" customerId=$customerId_token$ direction="in"
 | table *
 | fields - _raw</query>
           <earliest>$tc.earliest$</earliest>
