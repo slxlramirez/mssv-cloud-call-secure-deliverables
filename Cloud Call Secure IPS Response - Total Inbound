@@ -1,20 +1,17 @@
 <form>
   <label>Cloud Call Secure IPS Response - Total Inbound</label>
   <fieldset submitButton="true">
-    <input type="dropdown" token="custId_token">
-      <label>Customer Id</label>
-      <fieldForLabel>customerId</fieldForLabel>
-      <fieldForValue>customerId</fieldForValue>
+    <input type="dropdown" token="customerApi_token" searchWhenChanged="true">
+      <label>Customer</label>
+      <fieldForLabel>customerName</fieldForLabel>
+      <fieldForValue>apiKey</fieldForValue>
       <search>
-        <query>index="hosted-uc" 
-| dedup customerId
-| table customerId
-| sort customerId</query>
+        <query>| inputlookup callsecureapis.csv | table customerName apiKey</query>
         <earliest>0</earliest>
         <latest></latest>
       </search>
     </input>
-    <input type="time" token="field1">
+    <input type="time" token="field1" searchWhenChanged="true">
       <label></label>
       <default>
         <earliest>-24h@h</earliest>
@@ -26,7 +23,7 @@
     <panel>
       <chart>
         <search>
-          <query>index="hosted-uc" customerId=$custId_token$ direction="in"
+          <query>index="hosted-uc" customerId=$customerApi_token$ direction="in"
 | timechart span=15m count fixedrange=f</query>
           <earliest>$field1.earliest$</earliest>
           <latest>$field1.latest$</latest>
@@ -37,7 +34,7 @@
         <drilldown>
           <set token="click_value_latest">$click.value$</set>
           <eval token="click_value_latest">relative_time($click.value$,"+15m")</eval>
-          <link target="_blank">/app/search/zzz__cloud_call_secure_ips_total_inbound_details?form.tc.earliest=$click.value$&amp;form.tc.latest=$click_value_latest$&amp;form.custId_token=$custId_token$</link>
+          <link target="_blank">/app/search/zzz__cloud_call_secure_ips_total_inbound_details?form.tc.earliest=$click.value$&amp;form.tc.latest=$click_value_latest$&amp;form.customerApi_token=$customerApi_token$</link>
         </drilldown>
       </chart>
     </panel>
