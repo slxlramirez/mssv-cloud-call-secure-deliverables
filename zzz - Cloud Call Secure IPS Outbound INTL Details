@@ -1,7 +1,7 @@
 <form>
   <label>zzz - Cloud Call Secure IPS Outbound INTL Details</label>
   <fieldset submitButton="false">
-    <input type="dropdown" token="custId_token">
+    <input type="dropdown" token="customerId_token">
       <label>Customer Id</label>
       <fieldForLabel>customerId</fieldForLabel>
       <fieldForValue>customerId</fieldForValue>
@@ -103,7 +103,7 @@
       <table>
         <title>CDR</title>
         <search id="cdr">
-          <query>index="hosted-uc" customerId=$custId_token$ direction="out" NOT libphonenumber.countryCode="1" 
+          <query>index="hosted-uc" customerId=$customerId_token$ direction="out" NOT libphonenumber.countryCode="1" 
 | table *
 | fields - _raw</query>
           <earliest>$tc.earliest$</earliest>
