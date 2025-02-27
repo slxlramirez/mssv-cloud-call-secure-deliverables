@@ -1,8 +1,8 @@
 <form>
   <label>zzz - Cloud Call Secure IPS Total Inbound Details</label>
   <fieldset submitButton="false">
-    <input type="dropdown" token="custId_token">
-      <label>Customer Id</label>
+    <input type="dropdown" token="customerApi_token">
+      <label>Customer Api</label>
       <fieldForLabel>customerId</fieldForLabel>
       <fieldForValue>customerId</fieldForValue>
       <search>
@@ -10,7 +10,7 @@
 | dedup customerId
 | table customerId
 | sort customerId</query>
-        <earliest>-30d@d</earliest>
+        <earliest>-24h@h</earliest>
         <latest>now</latest>
       </search>
     </input>
@@ -104,7 +104,7 @@
       <table>
         <title>CDR</title>
         <search id="cdr">
-          <query>index="hosted-uc" customerId=$custId_token$ direction="in"
+          <query>index="hosted-uc" customerId=$customerApi_token$ direction="in"
 | table *
 | fields - _raw</query>
           <earliest>$tc.earliest$</earliest>
