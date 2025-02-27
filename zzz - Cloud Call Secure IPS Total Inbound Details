@@ -1,8 +1,8 @@
 <form>
   <label>zzz - Cloud Call Secure IPS Total Inbound Details</label>
   <fieldset submitButton="false">
-    <input type="dropdown" token="customerApi_token">
-      <label>Customer Api</label>
+    <input type="dropdown" token="customerId_token">
+      <label>Customer Id</label>
       <fieldForLabel>customerId</fieldForLabel>
       <fieldForValue>customerId</fieldForValue>
       <search>
