@@ -1,5 +1,5 @@
 <dashboard>
-  <label>Call Secure Over Cloud Monthly Deliverable - Template</label>
+  <label>Call Secure Over Cloud Monthly Deliverable - Hess</label>
   <row>
     <panel>
       <table>
@@ -10,7 +10,7 @@
 | append 
 [
 | makeresults 
-| eval n="Customer Name"
+| eval n="Hess"
 ]
 | append 
 [
@@ -32,7 +32,7 @@
       <single>
         <title>Total Inbound</title>
         <search>
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" direction="in" customerId="c55e7ff0fd6"
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" direction="in" customerId="38e0ad6799a"
 | stats count</query>
           <earliest>-1mon@mon</earliest>
           <latest>@mon</latest>
@@ -45,7 +45,7 @@
       <single>
         <title>Total Outbound</title>
         <search>
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" direction="out" customerId="c55e7ff0fd6"
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" direction="out" customerId="38e0ad6799a"
 | stats count</query>
           <earliest>-1mon@mon</earliest>
           <latest>@mon</latest>
@@ -59,7 +59,7 @@
       <single>
         <title>Total Calls</title>
         <search>
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time"  customerId="c55e7ff0fd6"
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time"  customerId="38e0ad6799a"
 | stats count</query>
           <earliest>-1mon@mon</earliest>
           <latest>@mon</latest>
@@ -74,7 +74,7 @@
       <chart>
         <title>Calls by Disposition</title>
         <search>
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="c55e7ff0fd6"
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="38e0ad6799a"
 | timechart span=1d count by actionDirective</query>
           <earliest>-1mon@mon</earliest>
           <latest>@mon</latest>
@@ -92,7 +92,7 @@
       <chart>
         <title>Calls by Direction</title>
         <search>
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="c55e7ff0fd6"
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="38e0ad6799a"
 | timechart span=1d count by direction</query>
           <earliest>-1mon@mon</earliest>
           <latest>@mon</latest>
@@ -111,7 +111,7 @@
       <chart>
         <title>Counts by Disposition</title>
         <search>
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="c55e7ff0fd6"
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="38e0ad6799a"
 | stats count by actionDirective
 | eval actionDirective=actionDirective . " (" . count . ")"</query>
           <earliest>-1mon@mon</earliest>
@@ -126,7 +126,7 @@
       <chart>
         <title>Calls by Direction</title>
         <search>
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="c55e7ff0fd6"
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="38e0ad6799a"
 | stats count by direction
 | eval direction=direction . " (" . count . ")"</query>
           <earliest>-1mon@mon</earliest>
@@ -143,7 +143,7 @@
       <table>
         <title>Top 10 Inbound Sources</title>
         <search>
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="c55e7ff0fd6" direction="in" actionDirective="allow"
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="38e0ad6799a" direction="in" actionDirective="allow"
 | fillnull value="Data not provided" npacData.provider recentlyPorted
 | stats count by srcNum validNum nanpNum recentlyPorted
 | rename srcNum as Source validNum as "Valid Num" nanpNum as Nanp 
@@ -160,7 +160,7 @@
       <table>
         <title>Top 10 Inbound Destinations</title>
         <search>
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="c55e7ff0fd6" direction="in" actionDirective="allow"
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="38e0ad6799a" direction="in" actionDirective="allow"
 | stats count by destNum
 | rename destNum as Destination
 | sort -count
@@ -178,7 +178,7 @@
       <chart>
         <title>Outbound INTL by Day</title>
         <search>
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="c55e7ff0fd6" direction="out" NOT libphonenumber.countryCode ="1" 
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="38e0ad6799a" direction="out" NOT libphonenumber.countryCode ="1" 
 | timechart span=1d count by libphonenumber.countryCode</query>
           <earliest>-1mon@mon</earliest>
           <latest>@mon</latest>
@@ -195,7 +195,7 @@
       <table>
         <title>Top 10 Outbound INTL Callers</title>
         <search>
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="c55e7ff0fd6" direction="out" NOT libphonenumber.countryCode="1" 
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="38e0ad6799a" direction="out" NOT libphonenumber.countryCode="1" 
 | stats count by srcNum libphonenumber.countryCode
 | rename srcNum as Source libphonenumber.countryCode as cc
 | sort -count
@@ -213,7 +213,7 @@
       <table>
         <title>Top 10 NVCL Callers</title>
         <search id="nvcl">
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="c55e7ff0fd6" direction="in" nvclFound="true"
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="38e0ad6799a" direction="in" nvclFound="true"
 | fillnull value="Null" npacData.provider  
 | stats count by srcNum validNum nanpNum actionDirective
 | rename srcNum as Source validNum as Valid nanpNum as Nanp 
@@ -230,20 +230,40 @@
         <option name="refresh.display">progressbar</option>
       </table>
     </panel>
+    <panel>
+      <table>
+        <title>Total NVCL Calls</title>
+        <search>
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="38e0ad6799a" direction="in" nvclFound="true"
+| fillnull value="Null" npacData.provider  
+| stats count by srcNum validNum nanpNum actionDirective
+| rename srcNum as Source validNum as Valid nanpNum as Nanp 
+| sort -count
+| rex field=Source "\+(?&lt;cc&gt;\d)(?&lt;npa&gt;\d\d\d)(?&lt;nxx&gt;\d+)"
+| rename cc as "Country Code" npa as "Area Code" nxx as "Local Number"
+| lookup scurelogix_nhcl.csv "Country Code" "Area Code" "Local Number" OUTPUT "Last Name" as "category"
+| fields - "Country Code" "Area Code" "Local Number"
+| stats sum(count) as calls by actionDirective</query>
+          <earliest>-1mon@mon</earliest>
+          <latest>@mon</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
   </row>
   <row>
     <panel>
       <table>
         <title>Top 10 Spikey Callers (At least 3 calls and 50% on one day)</title>
         <search>
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="c55e7ff0fd6" direction="in" 
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="38e0ad6799a" direction="in" 
 | bucket _time span=day 
 | stats count as day_calls by _time "wblData{}.srcNum"
 | eval timecol=_time
 | stats max(day_calls) as max_calls by "wblData{}.srcNum"
 | append
 [
-search index="hosted-uc" customerId="c55e7ff0fd6" direction="in" 
+search index="hosted-uc" custApiKey="xPKHR1" direction="in" 
 | stats count as total_calls by "wblData{}.srcNum"
 ]
 | stats values(*) by "wblData{}.srcNum"
@@ -263,7 +283,7 @@ search index="hosted-uc" customerId="c55e7ff0fd6" direction="in"
       <table>
         <title>Top 10 Spread ( &gt;2 destinations)</title>
         <search>
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" direction="in" customerId="c55e7ff0fd6"
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" direction="in" customerId="38e0ad6799a"
 | stats count dc(destNum) as spread by "wblData{}.srcNum"
 | eval perc_spread = ROUND(spread/count,1)
 | search spread &gt; 2
@@ -280,7 +300,7 @@ search index="hosted-uc" customerId="c55e7ff0fd6" direction="in"
       <table>
         <title>Invalid Numbers</title>
         <search>
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="c55e7ff0fd6" direction="in" validNum="false" 
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="38e0ad6799a" direction="in" validNum="false" 
 | stats count by srcNum validNum nanpNum 
 | rename srcNum as Source validNum as Valid nanpNum as Nanp npacData.provider as NpacProvider
 | sort -count
@@ -296,7 +316,7 @@ search index="hosted-uc" customerId="c55e7ff0fd6" direction="in"
       <table>
         <title>Top 10 Terminated Callers</title>
         <search>
-          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="c55e7ff0fd6" actionDirective="terminate" | stats count by srcNum | sort -count | head 10</query>
+          <query>index="hosted-uc" sourcetype="_json_hcd_epoch_time" customerId="38e0ad6799a" actionDirective="block" | stats count by srcNum | sort -count | head 10</query>
           <earliest>-1mon@mon</earliest>
           <latest>@mon</latest>
         </search>
